@@ -128,7 +128,7 @@ export default function SignIn() {
                     />
                   </FormControl>
                   <FormDescription>
-                    We'll use this email to contact you.
+                    We ll use this email to contact you.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

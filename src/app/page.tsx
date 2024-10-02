@@ -92,12 +92,12 @@ const Home = () => {
 
       {/* Men's Section */}
       <section className="my-8 ">
-        <h2 className="text-2xl font-bold w-full shadow-sm p-4 shadow-black text-center mb-4">Men's Collection</h2>
+        <h2 className="text-2xl font-bold w-full shadow-sm p-4 shadow-black text-center mb-4">Men s Collection</h2>
         <div className="flex flex-row gap-2 overflow-x-scroll">
           {
             homePageData && homePageData.menData.length > 0 && homePageData.menData.map((item) => {
               return (
-                <ProductCard product={item} />
+                <ProductCard key={item._id} product={item} />
               );
             })
           }
@@ -107,7 +107,7 @@ const Home = () => {
       {/* Women's Section */}
       <section className="my-8 overflow-x-scroll">
         <h2 className="text-2xl font-bold w-full shadow-sm p-4 shadow-black text-center mb-4">
-          Women's Collection
+          Women s Collection
         </h2>
         <div className="flex flex-row gap-2 overflow-x-scroll">
           {homePageData && homePageData.womenData.length > 0 &&
@@ -119,12 +119,12 @@ const Home = () => {
 
       {/* Kid's Section */}
       <section className="my-8">
-        <h2 className="text-2xl w-full text-center shadow-sm p-4 shadow-black font-bold mb-4">Kid's Collection</h2>
+        <h2 className="text-2xl w-full text-center shadow-sm p-4 shadow-black font-bold mb-4">Kid s Collection</h2>
         <div className=" flex flex-row gap-2 overflow-x-scroll ">
           {
             homePageData && homePageData.kidData.length > 0 && homePageData.kidData.map((item) => {
               return (
-                <ProductCard product={item} />
+                <ProductCard key={item._id} product={item} />
               );
             })
           }

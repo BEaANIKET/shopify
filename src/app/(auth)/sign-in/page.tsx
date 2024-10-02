@@ -20,7 +20,6 @@ import { Loader2 } from "lucide-react";
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useAppContext } from "@/context";
-import { log } from "console";
 
 const formSchema = signInSchema;
 
@@ -127,7 +126,7 @@ export const SignIn = () => {
               onClick={() => router.replace("/sign-up")}
               variant="link"
             >
-              Don't have an account?
+              Don t have an account?
             </Button>
           </form>
         </Form>
