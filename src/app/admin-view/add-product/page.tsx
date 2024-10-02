@@ -62,24 +62,13 @@ export default function Page() {
       <div className="grid w-full max-w-[1500px] p-8 items-center gap-1.5">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-            <FormField
-              control={form.control}
-              name="file"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>File</FormLabel>
-                  <FormControl>
-                    <Input
-                      id="picture"
-                      type="file"
-                      onChange={(e) => setFile(e.target.files[0])}
-                    />
-                  </FormControl>
-                  <FormDescription>Add Your Item Photo</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+
+            <Input
+              id="picture"
+              type="file"
+              onChange={(e) => setFile(e.target.files[0])}
             />
+
             <FormField
               control={form.control}
               name="name"
