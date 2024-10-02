@@ -7,7 +7,7 @@ import { getProductById } from '@/services/product';
 import ProductDetails from '@/components/productDetails';
 
 
-export const Page = () => {
+const Page = () => {
     const params = useParams()
     const Id = params?.id
     const [product, setProduct] = useState(null)

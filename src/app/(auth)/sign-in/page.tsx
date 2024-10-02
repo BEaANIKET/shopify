@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import { signInSchema } from "@/schema/signInSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -20,10 +20,9 @@ import { Loader2 } from "lucide-react";
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useAppContext } from "@/context";
-
 const formSchema = signInSchema;
 
-export const Page = () => {
+const Page = () => {
   const [isSignLoading, setIsSignLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -135,4 +134,4 @@ export const Page = () => {
   );
 };
 
-export default Page
+export default Page;

@@ -19,7 +19,7 @@ import { addProductSchema } from "@/schema/addProductSchema";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
-import { addNewProduct } from "../../../services/product/index.ts";
+import { addNewProduct } from "@/services/product";
 
 const InputSchema = addProductSchema;
 

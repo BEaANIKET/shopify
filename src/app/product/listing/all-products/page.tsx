@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import ProductCard from '@/components/product';
 import { Footer } from '@/components/footer';
 
-export const Page = () => {
+const Page = () => {
 
   const [allData, setAllData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

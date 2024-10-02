@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context';
 
-export const Page = () => {
+const Page = () => {
 
     const router = useRouter();
     const [loading, setLoading] = useState(true);

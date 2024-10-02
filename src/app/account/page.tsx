@@ -1,14 +1,14 @@
 'use client'
 
+import react from 'react'
 import { useAppContext } from '@/context';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from "@/components/ui/button";
 import { addNewAddress, deleteAddress, getAddress, updateAddress } from '@/services/address/addressServious';
 import toast from 'react-hot-toast';
-import PageLoader from 'next/dist/client/page-loader';
 
-export const Page = () => {
+const Page = () => {
 
     const { user } = useAppContext();
     const { userAddress, setUserAddress } = useAppContext()
@@ -76,7 +76,7 @@ export const Page = () => {
         try {
             if (isEditingAddress) {
                 const response = await updateAddress(data, data._id);
-                if (response.success) {
+                if (response && response.success) {
                     toast.success("Address updated successfully");
                     setUserAddress((prev) => {
                         const updatedAddresses = [...prev];

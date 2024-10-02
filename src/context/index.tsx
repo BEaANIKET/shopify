@@ -5,11 +5,11 @@ import { getCurrentUser } from "@/services/user/getCurrUser"
 import { createContext, useContext, useEffect, useState } from "react"
 
 
-export const AppContext = createContext(null)
+export const AppContext = createContext({})
 export default function AppContextProvider({ children }) {
 
-    const [user, setUser] = useState()
-    const [isAuthUser, setIsAuthUser] = useState()
+    const [user, setUser] = useState({})
+    const [isAuthUser, setIsAuthUser] = useState(false)
     const [currUpdateProductDetails, setCurrUpdateProductDetails] = useState({
         size: "",
         name: "",
@@ -40,7 +40,7 @@ export default function AppContextProvider({ children }) {
                 setUser(response)
                 setIsAuthUser(true)
             } else {
-                setUser(null)
+                setUser({})
                 setIsAuthUser(false)
             }
         }

@@ -1,6 +1,6 @@
 
 
-export const Page = async () => {
+const Page = async () => {
     return
     <>
         <div className=" w-full flex justify-center items-center h-screen text-2xl text-black">

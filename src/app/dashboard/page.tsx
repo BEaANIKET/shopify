@@ -1,5 +1,5 @@
 
-export const Dashboard = async () => {
+const Dashboard = async () => {
     return (
         <>
             <div>

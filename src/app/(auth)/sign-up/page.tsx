@@ -9,7 +9,6 @@ import axios from "axios";
 import { z } from "zod";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import bg from './bg.jpg'
 import { Loader2 } from "lucide-react"
 
 
@@ -73,6 +72,7 @@ export default function SignIn() {
         </h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+
             <FormField
               control={form.control}
               name="firstName"
@@ -166,7 +166,6 @@ export default function SignIn() {
                       <label className="flex items-center space-x-2">
                         <input
                           type="radio"
-                          value="Admin"
                           {...field}
                           checked={field.value === "Admin"}
                           onChange={() => field.onChange("Admin")}
@@ -177,7 +176,6 @@ export default function SignIn() {
                       <label className="flex items-center space-x-2">
                         <input
                           type="radio"
-                          value="Client"
                           {...field}
                           checked={field.value === "Client"}
                           onChange={() => field.onChange("Client")}
