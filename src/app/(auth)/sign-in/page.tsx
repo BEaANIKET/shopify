@@ -23,7 +23,7 @@ import { useAppContext } from "@/context";
 
 const formSchema = signInSchema;
 
-export const SignIn = () => {
+export const Page = () => {
   const [isSignLoading, setIsSignLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -135,4 +135,4 @@ export const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Page
