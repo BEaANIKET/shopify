@@ -30,7 +30,7 @@ const AllProduct = () => {
 
   return (
     <div className="flex w-full justify-center">
-      <div className="text-black flex flex-wrap gap-2 justify-center ">
+      <div className="text-black flex flex-wrap gap-2 justify-center h-fit  ">
         {allProductData.length !== 0 &&
           allProductData.map((product, index) => (
             <ProductCard

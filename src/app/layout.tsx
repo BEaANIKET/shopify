@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} w-full overflow-x-hidden m-0 `}>
         <AppContextProvider>
           <Navbar />
           <CartComponents />

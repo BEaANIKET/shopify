@@ -14,7 +14,6 @@ const Page = () => {
     return name.length > maxLength ? name.substring(0, maxLength) + "..." : name;
   };
 
-
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -35,8 +34,8 @@ const Page = () => {
 
   return (
     <>
-      <div className="flex min-h-screen w-full justify-center mt-[10px]">
-        <div className="text-black flex flex-wrap gap-2 justify-center ">
+      <div className="flex min-h-screen w-full justify-center mt-[10px] ">
+        <div className="text-black flex flex-wrap gap-2 justify-center h-fit  ">
           {menData.length !== 0 &&
             menData.map((product, index) => (
               <ProductCard

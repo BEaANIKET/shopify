@@ -29,6 +29,8 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   .dark {
@@ -63,6 +65,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -72,16 +75,19 @@
   background-image: url('../../public/bg.jpg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover; 
+  background-size: cover;
 }
 
 
 .visuallyHidden {
-  position: absolute; 
-  overflow: hidden; 
-  clip: rect(0 0 0 0); 
-  height: 1px; width: 1px; 
-  margin: -1px; padding: 0; border: 0; 
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
 }
 
 
@@ -101,7 +107,7 @@
   display: block;
   border-radius: 4px;
   transition: all 0.4s ease-in-out;
-  position: absolute; 
+  position: absolute;
 }
 
 .bar1 {
@@ -124,20 +130,20 @@
 
 /* HAMBURGER 2 */
 
-.checkbox2:checked + label > .hamburger2 > .bar1{
+.checkbox2:checked+label>.hamburger2>.bar1 {
   transform: translateX(40px);
   background-color: transparent;
 }
 
-.checkbox2:checked + label > .hamburger2 > .bar2{
+.checkbox2:checked+label>.hamburger2>.bar2 {
   transform: rotate(45deg);
 }
 
-.checkbox2:checked + label > .hamburger2 > .bar3{
+.checkbox2:checked+label>.hamburger2>.bar3 {
   transform: rotate(-45deg);
 }
 
-.checkbox2:checked + label > .hamburger2 > .bar4{
+.checkbox2:checked+label>.hamburger2>.bar4 {
   transform: translateX(-40px);
   background-color: transparent;
 }

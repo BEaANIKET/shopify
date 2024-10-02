@@ -103,7 +103,7 @@ export const ProductCard = ({ product }) => {
   product.priceDrop = String(product.priceDrop)
 
   return (
-    <div className="max-w-sm w-[170px] min-w-[170px]  lg:w-[250px] rounded h-fit overflow-hidden shadow-lg text-black cursor-pointer ">
+    <div className="max-w-sm w-[170px] min-w-[170px]  lg:w-[250px] rounded h-fit overflow-hidden shadow-lg text-white cursor-pointer ">
       <img onClick={handleClickOnProduct} className="w-full lg:h-[250px] h-[170px] " src={imageUrl} alt={name} />
       <div className="px-2 py-4">
         <div className="font-bold text-md lg:text-xl mb-2  h-[44px]">

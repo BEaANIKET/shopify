@@ -18,7 +18,7 @@ import CartComponents from "../Cart";
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
-  const { user, setUser, isAuthUser, setIsAuthUser, isOPenCart, setIsOpenCart, cartItemCount } = useAppContext();
+  const { user, setUser, isAuthUser, setIsAuthUser, isOpenCart, setIsOpenCart, cartItemCount } = useAppContext();
   const path = usePathname();
   const isAdminView = path.includes("/admin-view");
 
@@ -41,7 +41,7 @@ export const Navbar = () => {
   };
 
   useEffect(() => {
-    if (isOPenCart) {
+    if (isOpenCart) {
       setIsOpenCart(false)
     }
     if (isMenuOpen) {
@@ -50,7 +50,7 @@ export const Navbar = () => {
   }, [path])
 
   const handleCartToggle = () => {
-    setIsOpenCart(!isOPenCart)
+    setIsOpenCart(!isOpenCart)
   }
 
   return (

@@ -34,8 +34,8 @@ const Page = () => {
 
   return (
     <>
-      <div className="flex w-full min-h-screen justify-center mt-[10px]">
-        <div className="text-black flex  flex-wrap gap-2 justify-center ">
+      <div className="flex w-full min-h-screen justify-center mt-[10px] ">
+        <div className="text-black flex flex-wrap gap-2 justify-center h-fit ">
           {kidData.length !== 0 &&
             kidData.map((product, index) => (
               <ProductCard
