@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -13,9 +12,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addProductSchema } from "@/schema/addProductSchema";
+import { addProductSchema, AddProductSchemaType } from "@/schema/addProductSchema";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
@@ -24,10 +23,10 @@ import { addNewProduct } from "@/services/product";
 const InputSchema = addProductSchema;
 
 export default function Page() {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
   const [isSignLoading, setIsSignLoading] = useState(false);
 
-  const form = useForm({
+  const form = useForm<AddProductSchemaType>({
     resolver: zodResolver(InputSchema),
     defaultValues: {
       size: [],
@@ -43,14 +42,13 @@ export default function Page() {
 
   const router = useRouter();
 
-  const onSubmit = async (values) => {
+  const onSubmit: SubmitHandler<AddProductSchemaType> = async (values) => {
     setIsSignLoading(true);
     const response = await addNewProduct(values, file);
     setIsSignLoading(false);
     if (response && response.success) {
       form.reset();
       setFile(null);
-      // router.replace('/admin-view')
       toast.success("Product added successfully!");
     } else {
       toast.error("Failed to add product.");
@@ -60,15 +58,13 @@ export default function Page() {
   return (
     <div className="flex justify-center">
       <div className="grid w-full max-w-[1500px] p-8 items-center gap-1.5">
+        <Input
+          id="picture"
+          type="file"
+          onChange={(e) => setFile(e.target.files?.[0] || null)}
+        />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-
-            <Input
-              id="picture"
-              type="file"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-
             <FormField
               control={form.control}
               name="name"

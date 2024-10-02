@@ -57,13 +57,13 @@ export default function Page() {
   return (
     <div className="mt-[10px] flex justify-center">
       <div className="grid w-full max-w-[1500px] p-8 items-center gap-1.5">
+        <Input
+          id="picture"
+          type="file"
+          onChange={(e) => setFile(e.target.files[0])}
+        />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-            <Input
-              id="picture"
-              type="file"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
             {/* Name */}
             <FormField
               control={form.control}
@@ -136,12 +136,12 @@ export default function Page() {
                             type="checkbox"
                             value={category}
                             checked={field.value.includes(category)}
-                            onChange={(e) =>
-                              field.onChange(
-                                e.target.checked
-                                  ? [...field.value, category]
-                                  : field.value.filter((val) => val !== category)
-                              )
+                            onChange={(e) => {
+                              const newCategories = field.value.includes(category)
+                                ? field.value.filter((c) => c !== category)
+                                : [...field.value, category];
+                              field.onChange(newCategories);
+                            }
                             }
                           />
                           <span>{category}</span>

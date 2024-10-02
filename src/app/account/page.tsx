@@ -1,25 +1,33 @@
 'use client'
 
-import react from 'react'
+import React, { useEffect, useState } from 'react';
 import { useAppContext } from '@/context';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { Button } from "@/components/ui/button";
 import { addNewAddress, deleteAddress, getAddress, updateAddress } from '@/services/address/addressServious';
 import toast from 'react-hot-toast';
 
-const Page = () => {
+type Address = {
+    _id?: string;
+    fullName: string;
+    address: string;
+    city: string;
+    state: string;
+    pinCode: string;
+    country: string;
+};
 
+const Page: React.FC = () => {
     const { user } = useAppContext();
-    const { userAddress, setUserAddress } = useAppContext()
-    const [isEditingAddress, setIsEditingAddress] = useState(false);
-    const [editIndex, setEditIndex] = useState(null);
-    const [showForm, setShowForm] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [removeLoading, setRemoveLoading] = useState(false);
-    const [fetchDataLoading, setFetchDataLoading] = useState(true);
+    const { userAddress, setUserAddress } = useAppContext();
+    const [isEditingAddress, setIsEditingAddress] = useState<boolean>(false);
+    const [editIndex, setEditIndex] = useState<number | null>(null);
+    const [showForm, setShowForm] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [removeLoading, setRemoveLoading] = useState<boolean>(false);
+    const [fetchDataLoading, setFetchDataLoading] = useState<boolean>(true);
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<Address>({
         defaultValues: {
             fullName: '',
             address: '',
@@ -32,15 +40,14 @@ const Page = () => {
 
     useEffect(() => {
         const getAddressData = async () => {
-            const response = await getAddress()
+            const response = await getAddress();
             if (response.success) {
                 setUserAddress(response.data);
             }
-
             setFetchDataLoading(false);
-        }
+        };
         getAddressData();
-    }, [])
+    }, [setUserAddress]);
 
     const handleAddNewAddress = () => {
         setShowForm(true);
@@ -48,7 +55,7 @@ const Page = () => {
         reset();
     };
 
-    const handleEditAddress = (index) => {
+    const handleEditAddress = (index: number) => {
         const address = userAddress[index];
         setShowForm(true);
         setIsEditingAddress(true);
@@ -56,26 +63,26 @@ const Page = () => {
         reset(address);
     };
 
-    const handleRemoveAddress = async (index, id) => {
+    const handleRemoveAddress = async (index: number, id: string) => {
         setRemoveLoading(true);
         try {
-            const response = await deleteAddress(id)
+            const response = await deleteAddress(id);
             if (response && response.success) {
                 toast.success("Address deleted successfully");
                 setUserAddress((prev) => prev.filter((_, i) => i !== index));
             }
         } catch (error) {
-            console.error(error)
+            console.error(error);
         } finally {
             setRemoveLoading(false);
         }
     };
 
-    const onSubmit = async (data) => {
+    const onSubmit: SubmitHandler<Address> = async (data) => {
         setLoading(true);
         try {
-            if (isEditingAddress) {
-                const response = await updateAddress(data, data._id);
+            if (isEditingAddress && editIndex !== null) {
+                const response = await updateAddress(data, data._id!);
                 if (response && response.success) {
                     toast.success("Address updated successfully");
                     setUserAddress((prev) => {
@@ -127,7 +134,7 @@ const Page = () => {
             {
                 fetchDataLoading ? (
                     <div className=' w-full h-full flex text-black justify-center items-center'>
-                        <h4> Loading ...</h4>
+                        <h4>Loading ...</h4>
                     </div>
                 ) : (
                     <div className='w-full border-2 border-black rounded-lg p-6 bg-gray-50 shadow-lg mt-6'>
@@ -135,7 +142,7 @@ const Page = () => {
                             userAddress && userAddress.length > 0 ? (
                                 <div>
                                     <h4 className='text-lg font-semibold mb-4 text-gray-700'>Saved Addresses:</h4>
-                                    {userAddress.map((data, index) => (
+                                    {userAddress.map((data: Address, index: number) => (
                                         <div key={index} className='border-b mb-4 pb-2 border-black'>
                                             <p>FullName: {data.fullName}</p>
                                             <p>City: {data.city}</p>
@@ -148,7 +155,7 @@ const Page = () => {
                                             >
                                                 Update
                                             </Button>
-                                            <Button onClick={() => handleRemoveAddress(index, data._id)}>
+                                            <Button onClick={() => handleRemoveAddress(index, data._id!)}>
                                                 Remove
                                             </Button>
                                         </div>
@@ -169,9 +176,6 @@ const Page = () => {
                 )
             }
 
-            {/* Address Section */}
-
-
             {/* Address Form */}
             {showForm && (
                 <div className='mt-6 flex justify-start items-start'>
@@ -184,11 +188,11 @@ const Page = () => {
                         </button>
 
                         <div className='mb-1'>
-                            <label className='block text-gray-700 font-semibold mb-2'>FullName </label>
+                            <label className='block text-gray-700 font-semibold mb-2'>Full Name</label>
                             <input
                                 className={`w-full px-4 py-2 border ${errors.fullName ? 'border-red-500' : 'border-gray-300'} rounded-md`}
-                                {...register("fullName", { required: "FullName is required" })}
-                                placeholder='Enter your FullName'
+                                {...register("fullName", { required: "Full Name is required" })}
+                                placeholder='Enter your full name'
                             />
                             {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>}
                         </div>
@@ -225,33 +229,29 @@ const Page = () => {
                             />
                             {errors.pinCode && <p className="text-red-500 text-sm mt-1">{errors.pinCode.message}</p>}
                         </div>
+
+                        <div className='mb-1'>
+                            <label className='block text-gray-700 font-semibold mb-2'>Address</label>
+                            <textarea
+                                className={`w-full px-4 py-2 border ${errors.address ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                                {...register("address", { required: "Address is required" })}
+                                placeholder='Enter your address'
+                            />
+                            {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>}
+                        </div>
+
                         <div className='mb-1'>
                             <label className='block text-gray-700 font-semibold mb-2'>Country</label>
                             <input
                                 className={`w-full px-4 py-2 border ${errors.country ? 'border-red-500' : 'border-gray-300'} rounded-md`}
-                                {...register("country", {
-                                    required: "country is required",
-                                })}
+                                {...register("country", { required: "Country is required" })}
                                 placeholder='Enter your country'
                             />
                             {errors.country && <p className="text-red-500 text-sm mt-1">{errors.country.message}</p>}
                         </div>
 
-                        <div className='mb-1'>
-                            <label className='block text-gray-700 font-semibold mb-2'>Address</label>
-                            <input
-                                type="string"
-                                className={`w-full px-4 py-2 border ${errors.address ? 'border-red-500' : 'border-gray-300'} rounded-md`}
-                                {...register("address", {
-                                    required: "Address is required",
-                                })}
-                                placeholder='Enter your full Address'
-                            />
-                            {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>}
-                        </div>
-
-                        <Button type="submit" disabled={loading}>
-                            {loading ? "Processing..." : isEditingAddress ? "Update Address" : "Add Address"}
+                        <Button type="submit" disabled={loading} className='w-full mt-4'>
+                            {loading ? 'Saving...' : isEditingAddress ? 'Update Address' : 'Save Address'}
                         </Button>
                     </form>
                 </div>

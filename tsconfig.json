@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
+    "target": "esnext", // Ensure modern JS support
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "noEmit": true,
-    "esModuleInterop": true,
+    "allowJs": true, // Allows JS files in the project
+    "skipLibCheck": true, // Skip type checking of declaration files, faster builds
+    "strict": true, // Enable strict mode, good for production-ready code
+    "noEmit": true, // Do not emit output, as Next.js handles this
+    "esModuleInterop": true, // Support interop between ESModules and CommonJS
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node", // Changed to 'node' for broader support
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": true, // Required for Next.js to avoid errors with isolatedModules
     "jsx": "preserve",
-    "incremental": true,
+    "incremental": true, // Speeds up subsequent builds
     "plugins": [
       {
         "name": "next"
@@ -31,8 +32,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/app/sign-in/page.tsx"
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
