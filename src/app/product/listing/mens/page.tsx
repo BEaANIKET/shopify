@@ -9,12 +9,7 @@ const Page = () => {
 
   const [menData, setMenData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-
-  const truncateName = (name, maxLength) => {
-    return name.length > maxLength ? name.substring(0, maxLength) + "..." : name;
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,15 +25,7 @@ const Page = () => {
 
     fetchData()
 
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
 
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
 
   }, [])
 
@@ -52,7 +39,7 @@ const Page = () => {
                 key={index}
                 product={{
                   ...product,
-                  name: truncateName(product.name, windowWidth < 990 ? 20 : 40),
+                  name: truncateName(product.name, 20),
                 }}
               />
             ))}

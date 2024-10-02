@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 const AllProduct = () => {
 
   const { allProductData, setAllProductData } = useAppContext();
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const truncateName = (name, maxLength) => {
     return name.length > maxLength ? name.substring(0, maxLength) + "..." : name;
@@ -27,15 +26,6 @@ const AllProduct = () => {
 
     fetchAllProductData();
 
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
   }, []);
 
   return (
@@ -47,7 +37,7 @@ const AllProduct = () => {
               key={index}
               product={{
                 ...product,
-                name: truncateName(product.name, windowWidth < 990 ? 20 : 40),
+                name: truncateName(product.name, 20),
               }}
             />
           ))}

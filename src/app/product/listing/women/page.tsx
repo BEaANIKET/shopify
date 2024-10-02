@@ -9,7 +9,6 @@ const Page = () => {
 
   const [womenData, setWomenData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
 
   const truncateName = (name, maxLength) => {
@@ -30,15 +29,6 @@ const Page = () => {
 
     fetchData()
 
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
 
   }, [])
 
@@ -52,7 +42,7 @@ const Page = () => {
                 key={index}
                 product={{
                   ...product,
-                  name: truncateName(product.name, windowWidth < 990 ? 20 : 40),
+                  name: truncateName(product.name, 20),
                 }}
               />
             ))}
