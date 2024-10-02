@@ -40,6 +40,15 @@ export const Navbar = () => {
     router.replace("/");
   };
 
+  useEffect(() => {
+    if (isOPenCart) {
+      setIsOpenCart(false)
+    }
+    if (isMenuOpen) {
+      setIsMenuOpen(false)
+    }
+  }, [path])
+
   const handleCartToggle = () => {
     setIsOpenCart(!isOPenCart)
   }

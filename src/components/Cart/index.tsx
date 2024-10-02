@@ -7,19 +7,17 @@ import { getCartItems, updateCartItemQuantity, removeCartItem, removeAllCartItem
 import toast from 'react-hot-toast';
 import cross from './cross.png'
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 
 export const CartComponents = () => {
     const { isOpenCart, setIsOpenCart, setCartItemCount, cartItems, setCartItems, user } = useAppContext();
     const ref = useClickAway(() => setIsOpenCart(false));
     const router = useRouter();
-
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalSavedPrice, setTotalSavedPrice] = useState(0);
-
     // fetch data from backed to update cartitems
     useEffect(() => {
         if (user?.id) {
@@ -113,7 +111,7 @@ export const CartComponents = () => {
 
     return (
         <div ref={ref} className={`fixed w-fit  top-0 right-0 h-screen bg-black  z-50 transition-transform duration-300 ease-in-out  ${isOpenCart ? 'translate-x-0' : 'translate-x-full'}`}>
-            <div className=' w-fit  max-w-[350px] sm:max-w-[400px]  h-screen flex flex-col '>
+            <div className=' w-fit  w-[350px] sm:max-w-[400px]  h-screen flex flex-col '>
 
                 <div className="h-full w-full shadow-lg p-6 space-y-6 overflow-y-scroll ">
 

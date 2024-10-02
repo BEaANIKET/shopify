@@ -10,6 +10,10 @@ const Page = () => {
   const [menData, setMenData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const truncateName = (name, maxLength) => {
+    return name.length > maxLength ? name.substring(0, maxLength) + "..." : name;
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
