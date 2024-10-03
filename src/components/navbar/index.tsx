@@ -37,6 +37,7 @@ export const Navbar = () => {
     setUser("");
     setIsAuthUser(false);
     Cookies.remove("token");
+    localStorage.clear()
     router.replace("/");
   };
 

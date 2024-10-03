@@ -120,10 +120,21 @@ const Page: React.FC = () => {
 
     const handleAddressBoxClick = (data) => {
         if (data._id === userSelectedAddress?._id) {
+            localStorage.clear()
             setUserSelectedAddress(null);
             console.log(userSelectedAddress)
         }
         else {
+            localStorage.setItem('userSelectedAddress', JSON.stringify({
+                _id: data._id,
+                fullName: data.fullName,
+                address: data.address,
+                city: data.city,
+                state: data.state,
+                pinCode: data.pinCode,
+                country: data.country,
+                number: data.number,
+            }))
             setUserSelectedAddress(data)
         }
     }

@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { getProduct } from '@/services/product';
 import ProductCard from '@/components/product';
 import { useAppContext } from '@/context';
+import ProductSkeleton from '@/components/skeleton/ProductSkeleton';
 
 
 
@@ -19,26 +20,41 @@ const Home = () => {
     b1, b2, b3,
   ];
 
+
   const { homePageData, setHomePageData } = useAppContext()
 
 
   useEffect(() => {
     const getData = async () => {
-      const menData = await getProduct('men')
-      const womenData = await getProduct('women')
-      const kidData = await getProduct('kid')
-      if (menData && womenData && kidData) {
+      try {
+        const [menData, womenData, kidData] = await Promise.all([
+          getProduct('men').catch(error => {
+            console.error('Error fetching men data:', error);
+            return null;
+          }),
+          getProduct('women').catch(error => {
+            console.error('Error fetching women data:', error);
+            return null;
+          }),
+          getProduct('kid').catch(error => {
+            console.error('Error fetching kid data:', error);
+            return null;
+          }),
+        ]);
+
         setHomePageData(prev => ({
           ...prev,
-          menData: menData.data,
-          womenData: womenData.data,
-          kidData: kidData.data,
+          menData: menData ? menData.data : prev.menData,
+          womenData: womenData ? womenData.data : prev.womenData,
+          kidData: kidData ? kidData.data : prev.kidData,
         }));
+      } catch (error) {
+        console.error('Error fetching product data:', error);
       }
-    }
+    };
 
     getData();
-  }, [])
+  }, []);
 
   const handleNext = () => {
     const swiper = document.querySelector('.swiper').swiper;
@@ -93,13 +109,22 @@ const Home = () => {
       {/* Men's Section */}
       <section className="my-8 ">
         <h2 className="text-2xl font-bold w-full shadow-sm p-4 shadow-black text-center mb-4">Men s Collection</h2>
+
         <div className="flex flex-row gap-2 overflow-x-scroll">
           {
-            homePageData && homePageData.menData.length > 0 && homePageData.menData.map((item) => {
+            homePageData && homePageData.menData.length > 0 ? homePageData.menData.map((item) => {
               return (
                 <ProductCard key={item._id} product={item} />
               );
-            })
+            }) : (
+              <>
+                <ProductSkeleton />
+                <ProductSkeleton />
+                <ProductSkeleton />
+                <ProductSkeleton />
+              </>
+
+            )
           }
         </div>
       </section>
@@ -110,10 +135,19 @@ const Home = () => {
           Women s Collection
         </h2>
         <div className="flex flex-row gap-2 overflow-x-scroll">
-          {homePageData && homePageData.womenData.length > 0 &&
+          {homePageData && homePageData.womenData.length > 0 ?
             homePageData.womenData.map((item) => (
               <ProductCard key={item.id} product={item} />
-            ))}
+            )) : (
+              <>
+                <ProductSkeleton />
+                <ProductSkeleton />
+                <ProductSkeleton />
+                <ProductSkeleton />
+              </>
+
+            )
+          }
         </div>
       </section>
 
@@ -122,11 +156,19 @@ const Home = () => {
         <h2 className="text-2xl w-full text-center shadow-sm p-4 shadow-black font-bold mb-4">Kid s Collection</h2>
         <div className=" flex flex-row gap-2 overflow-x-scroll ">
           {
-            homePageData && homePageData.kidData.length > 0 && homePageData.kidData.map((item) => {
+            homePageData && homePageData.kidData.length > 0 ? homePageData.kidData.map((item) => {
               return (
                 <ProductCard key={item._id} product={item} />
               );
-            })
+            }) : (
+              <>
+                <ProductSkeleton />
+                <ProductSkeleton />
+                <ProductSkeleton />
+                <ProductSkeleton />
+              </>
+
+            )
           }
         </div>
       </section>

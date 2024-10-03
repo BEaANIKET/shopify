@@ -69,7 +69,6 @@ export default function AppContextProvider({ children }) {
     const [userSelectedAddress, setUserSelectedAddress] = useState()
 
 
-
     useEffect(() => {
         const getUser = async () => {
             const response = getCurrentUser()
@@ -82,6 +81,7 @@ export default function AppContextProvider({ children }) {
             }
         }
         getUser()
+        setUserSelectedAddress(JSON.parse(localStorage.getItem('userSelectedAddress')))
     }, [])
 
 
