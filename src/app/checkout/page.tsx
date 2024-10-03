@@ -35,6 +35,7 @@ const Page = () => {
     const [orderDetails, setOrderDetails] = useState({
         user: user?.id || '',
         deliveryAddress: userSelectedAddress || null,
+        orderItem: cartItems,
         totalPrice: totalPrice,
         totalSavedPrice: totalSavedPrice,
         orderStatus: 'Pending',
@@ -47,7 +48,7 @@ const Page = () => {
     });
 
     const handlePlaceOrder = async () => {
-        if (!orderDetails.user || !userSelectedAddress) {
+        if (!orderDetails.user || !userSelectedAddress || orderDetails.orderItem.length === 0) {
             alert('Please fill all required fields');
             return;
         }
@@ -106,10 +107,10 @@ const Page = () => {
 
             {/* Price Section */}
             <div className="flex flex-col flex-1 bg-gray-100 p-4 rounded-lg shadow-md">
-                <h3 className="text-xl font-bold text-black mb-2">Total Price: {totalPrice}</h3>
-                <h3 className="text-lg text-green-500 mb-2">Total Saved Price: {totalSavedPrice}</h3>
+                <h3 className="text-xl font-bold text-black mb-2">Total Price: {totalPrice.toFixed(2)}</h3>
+                <h3 className="text-lg text-green-500 mb-2">Total Saved Price: {totalSavedPrice.toFixed(2)}</h3>
                 <hr className="bg-black mt-2 mb-2 h-1" />
-                <h3 className="text-lg text-red-500 mb-4">Total Pay: {totalPrice + totalSavedPrice}</h3>
+                <h3 className="text-lg text-red-500 mb-4">Total Pay: {(totalPrice + totalSavedPrice).toFixed(2)}</h3>
                 <button onClick={handlePlaceOrder} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
                     Place Order
                 </button>

@@ -57,7 +57,7 @@ const Page = () => {
     }
   }
   return (
-    <div className="signpage flex justify-center items-center min-h-screen ">
+    <div className="signpage flex justify-center items-center h-full min-h-[calc(100vh-100px)] lg:min-h-[calc(100vh-80px)] ">
       <div className="w-full max-w-md p-8 bg-black text-white rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-2 text-center">
           Sign In to Shopify

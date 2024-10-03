@@ -6,7 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Button } from "@/components/ui/button";
 import { addNewAddress, deleteAddress, getAddress, updateAddress } from '@/services/address/addressServious';
 import toast from 'react-hot-toast';
-import { useSelectedLayoutSegment } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 type Address = {
     _id?: string;
@@ -40,6 +40,8 @@ const Page: React.FC = () => {
             number: ''
         }
     });
+
+    const router = useRouter()
 
     useEffect(() => {
         const getAddressData = async () => {
@@ -141,6 +143,9 @@ const Page: React.FC = () => {
                 </h4>
                 <button className='bg-black text-white px-4 py-2 rounded hover:bg-white hover:text-black hover:border-2 hover:border-black transition-colors duration-300'>
                     View Our Orders
+                </button>
+                <button onClick={() => router.replace('/checkout')} className='bg-black ml-2 text-white px-4 py-2 rounded hover:bg-white hover:text-black hover:border-2 hover:border-black transition-colors duration-300'>
+                    Got for Cheackout
                 </button>
             </div>
 
