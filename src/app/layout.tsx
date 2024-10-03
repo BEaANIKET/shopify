@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen bg-red-600 `}>
+      <body className={`${inter.className} min-h-screen`}>
         <AppContextProvider>
           <Navbar />
           <CartComponents />
