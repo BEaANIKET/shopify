@@ -2,10 +2,10 @@
 import toast from 'react-hot-toast'
 import axios from 'axios'
 
-export const addNewAddress = async ({ fullName, address, pinCode, state, city, country }) => {
+export const addNewAddress = async ({ fullName, address, pinCode, state, city, country, number }) => {
     try {
         const response = await axios.post('/api/address/add-address', {
-            fullName, address, pinCode, state, city, country
+            fullName, address, pinCode, state, city, country, number
         });
         return response.data;
     } catch (error) {
@@ -28,10 +28,10 @@ export const deleteAddress = async (addressId) => {
     }
 }
 
-export const updateAddress = async ({ fullName, address, pinCode, state, city, country }, addressId) => {
+export const updateAddress = async ({ fullName, address, pinCode, state, city, country, number }, addressId) => {
     try {
         const response = await axios.post(`/api/address/update-address?addressId=${addressId}`, {
-            fullName, address, pinCode, state, city, country
+            fullName, address, pinCode, state, city, country, number
         });
         return response.data;
     } catch (error) {

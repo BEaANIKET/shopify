@@ -105,7 +105,7 @@ export const CartComponents = () => {
     }
 
     const handleCheckout = () => {
-        router.replace('/cheakout');
+        router.replace('/checkout');
     };
 
 

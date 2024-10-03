@@ -36,6 +36,8 @@ interface AppContextType {
     setUserAddress: React.Dispatch<React.SetStateAction<any[]>>;
     allProductData: any[];
     setAllProductData: React.Dispatch<React.SetStateAction<any[]>>;
+    userSelectedAddress: any[];
+    setUserSelectedAddress: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 // Create the context with the correct type
@@ -64,6 +66,7 @@ export default function AppContextProvider({ children }) {
     })
     const [userAddress, setUserAddress] = useState([]);
     const [allProductData, setAllProductData] = useState([]);
+    const [userSelectedAddress, setUserSelectedAddress] = useState()
 
 
 
@@ -91,7 +94,8 @@ export default function AppContextProvider({ children }) {
         cartItems, setCartItems,
         homePageData, setHomePageData,
         userAddress, setUserAddress,
-        allProductData, setAllProductData
+        allProductData, setAllProductData,
+        userSelectedAddress, setUserSelectedAddress
     }
 
     return (

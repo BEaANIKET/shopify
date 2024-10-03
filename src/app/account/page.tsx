@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Button } from "@/components/ui/button";
 import { addNewAddress, deleteAddress, getAddress, updateAddress } from '@/services/address/addressServious';
 import toast from 'react-hot-toast';
+import { useSelectedLayoutSegment } from 'next/navigation';
 
 type Address = {
     _id?: string;
@@ -15,11 +16,12 @@ type Address = {
     state: string;
     pinCode: string;
     country: string;
+    number: Number
 };
 
 const Page: React.FC = () => {
     const { user } = useAppContext();
-    const { userAddress, setUserAddress } = useAppContext();
+    const { userAddress, setUserAddress, userSelectedAddress, setUserSelectedAddress } = useAppContext();
     const [isEditingAddress, setIsEditingAddress] = useState<boolean>(false);
     const [editIndex, setEditIndex] = useState<number | null>(null);
     const [showForm, setShowForm] = useState<boolean>(false);
@@ -34,7 +36,8 @@ const Page: React.FC = () => {
             city: '',
             state: '',
             pinCode: '',
-            country: ''
+            country: '',
+            number: ''
         }
     });
 
@@ -113,6 +116,16 @@ const Page: React.FC = () => {
         reset();
     };
 
+    const handleAddressBoxClick = (data) => {
+        if (data._id === userSelectedAddress?._id) {
+            setUserSelectedAddress(null);
+            console.log(userSelectedAddress)
+        }
+        else {
+            setUserSelectedAddress(data)
+        }
+    }
+
     return (
         <div className='w-full min-h-screen p-2'>
             {/* User Details */}
@@ -140,15 +153,16 @@ const Page: React.FC = () => {
                     <div className='w-full border-2 border-black rounded-lg p-6 bg-gray-50 shadow-lg mt-6'>
                         {
                             userAddress && userAddress.length > 0 ? (
-                                <div>
+                                <div >
                                     <h4 className='text-lg font-semibold mb-4 text-gray-700'>Saved Addresses:</h4>
                                     {userAddress.map((data: Address, index: number) => (
-                                        <div key={index} className='border-b mb-4 pb-2 border-black'>
+                                        <div key={index} className={`${userSelectedAddress?._id === data._id ? 'border-2 border-black ' : ''} border-b mb-4 pb-2 border-black`}>
                                             <p>FullName: {data.fullName}</p>
                                             <p>City: {data.city}</p>
                                             <p>State: {data.state}</p>
                                             <p>Pin Code: {data.pinCode}</p>
                                             <p>Address: {data.address}</p>
+                                            <p>Contact number: {data.number}</p>
                                             <Button
                                                 onClick={() => handleEditAddress(index)}
                                                 className="mr-2"
@@ -158,6 +172,10 @@ const Page: React.FC = () => {
                                             <Button onClick={() => handleRemoveAddress(index, data._id!)}>
                                                 Remove
                                             </Button>
+                                            <Button className=' ml-2' onClick={() => handleAddressBoxClick(data)}>
+                                                {data._id === userSelectedAddress?._id ? 'Selected' : 'Selecte Address'}
+                                            </Button>
+
                                         </div>
                                     ))}
                                 </div>
@@ -226,6 +244,20 @@ const Page: React.FC = () => {
                                     pattern: { value: /^[0-9]{6}$/, message: "Invalid Pin Code" }
                                 })}
                                 placeholder='Enter your pin code'
+                            />
+                            {errors.pinCode && <p className="text-red-500 text-sm mt-1">{errors.pinCode.message}</p>}
+                        </div>
+
+                        <div className='mb-1'>
+                            <label className='block text-gray-700 font-semibold mb-2'>Mobile No.</label>
+                            <input
+                                className={`w-full px-4 py-2 border ${errors.number ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                                {...register("number", {
+                                    required: "Mobile No. is required",
+                                    pattern: { value: /^[0-9]{10}$/, message: "Invalid mobile no." }
+                                })}
+                                type='Number'
+                                placeholder='Enter your mobile no.'
                             />
                             {errors.pinCode && <p className="text-red-500 text-sm mt-1">{errors.pinCode.message}</p>}
                         </div>
