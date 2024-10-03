@@ -55,7 +55,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-black pt-4 pb-4 pl-3 pr-3 z-50  h-[100px] lg:h-fit sticky top-0 w-full">
+      <nav className="bg-black pt-4 pb-4 pl-3 pr-3 z-50  h-[100px] lg:h-fit sticky block top-0 w-full">
         <div className="mx-auto flex justify-between items-center">
           {/* Logo */}
           <div className="text-white text-lg font-bold">
@@ -67,38 +67,41 @@ export const Navbar = () => {
             />
           </div>
 
-          <div className={" lg:flex absolute w-full  "}>
-            <div className=" w-full mt-[80px] lg:mt-0 flex justify-center overflow-scroll ">
-              {isAdminView
-                ? adminNavOptions.map((item) => (
-                  <>
-                    <Button
-                      onClick={() => router.push(`${item.path}`)}
-                      className=" w-fit text-white"
-                      key={item.id}
-                      variant="link"
-                    >
-                      {" "}
-                      {item.label}{" "}
-                    </Button>
-                    <hr />
-                  </>
-                ))
-                : navOptions.map((item) => (
-                  <>
-                    <Button
-                      onClick={() => router.push(`${item.path}`)}
-                      className=" w-fit text-white"
-                      key={item.id}
-                      variant="link"
-                    >
-                      {" "}
-                      {item.label}{" "}
-                    </Button>
-                    <hr />
-                  </>
-                ))}
+          <div className={" lg:flex absolute w-screen overflow-x-hidden "}>
+            <div className=" w-full ">
+              <div className=" w-full mt-[80px] lg:mt-0 flex justify-center overflow-scroll ">
+                {isAdminView
+                  ? adminNavOptions.map((item) => (
+                    <>
+                      <Button
+                        onClick={() => router.push(`${item.path}`)}
+                        className=" w-fit text-white"
+                        key={item.id}
+                        variant="link"
+                      >
+                        {" "}
+                        {item.label}{" "}
+                      </Button>
+                      <hr />
+                    </>
+                  ))
+                  : navOptions.map((item) => (
+                    <>
+                      <Button
+                        onClick={() => router.push(`${item.path}`)}
+                        className=" w-fit text-white"
+                        key={item.id}
+                        variant="link"
+                      >
+                        {" "}
+                        {item.label}{" "}
+                      </Button>
+                      <hr />
+                    </>
+                  ))}
+              </div>
             </div>
+
           </div>
 
           <div ref={ref} className="     ">
