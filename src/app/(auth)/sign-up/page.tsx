@@ -163,7 +163,7 @@ export default function SignIn() {
                   <FormLabel>Role</FormLabel>
                   <FormControl>
                     <div className="flex items-center space-x-4">
-                      <label className="flex items-center space-x-2">
+                      {/* <label className="flex items-center space-x-2">
                         <input
                           type="radio"
                           {...field}
@@ -172,7 +172,7 @@ export default function SignIn() {
                           className="text-black"
                         />
                         <span>Admin</span>
-                      </label>
+                      </label> */}
                       <label className="flex items-center space-x-2">
                         <input
                           type="radio"
