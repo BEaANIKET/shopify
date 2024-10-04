@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSelectedLayoutSegment } from 'next/navigation';
 import { useAppContext } from '@/context';
 import { Button } from "@/components/ui/button";
 
@@ -34,8 +34,8 @@ const Page = () => {
 
     const [orderDetails, setOrderDetails] = useState({
         user: user?.id || '',
-        deliveryAddress: userSelectedAddress || null,
-        orderItem: cartItems,
+        deliveryAddress: userSelectedAddress?._id || null,
+        orderItem: cartItems?._id,
         totalPrice: totalPrice,
         totalSavedPrice: totalSavedPrice,
         orderStatus: 'Pending',
@@ -46,7 +46,6 @@ const Page = () => {
         paymentRef: '',
         trackingNumber: ''
     });
-
     const handlePlaceOrder = async () => {
         if (!orderDetails.user || !userSelectedAddress || orderDetails.orderItem.length === 0) {
             alert('Please fill all required fields');
