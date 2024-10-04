@@ -99,7 +99,7 @@ const Page = () => {
                 ) : (
                     <p className="text-gray-600">No address selected yet.</p>
                 )}
-                <Button onClick={() => router.replace('/account')} className="mt-4 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+                <Button onClick={() => router.replace('/account')} className="mt-4 bg-black active:scale-[.95] text-white py-2 rounded-lg ">
                     {userSelectedAddress ? 'Edit Address' : 'Select Address'}
                 </Button>
             </div>
@@ -110,7 +110,7 @@ const Page = () => {
                 <h3 className="text-lg text-green-500 mb-2">Total Saved Price: {totalSavedPrice.toFixed(2)}</h3>
                 <hr className="bg-black mt-2 mb-2 h-1" />
                 <h3 className="text-lg text-red-500 mb-4">Total Pay: {(totalPrice + totalSavedPrice).toFixed(2)}</h3>
-                <button onClick={handlePlaceOrder} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+                <button onClick={handlePlaceOrder} className="w-full bg-black text-white py-2 rounded-lg  active:scale-[.95]">
                     Place Order
                 </button>
             </div>

@@ -221,12 +221,6 @@ export const CartComponents = () => {
                                             >
                                                 Remove
                                             </button>
-                                            <button
-                                                className="bg-green-500 text-white py-1 px-2 rounded-lg hover:bg-green-600"
-                                                onClick={() => buyNow(item.productId)}
-                                            >
-                                                Buy Now
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
