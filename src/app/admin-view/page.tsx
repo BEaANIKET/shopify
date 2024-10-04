@@ -1,116 +1,124 @@
 'use client'
 
 import React from 'react';
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+
+// Register Chart.js components
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Page = () => {
+    // Data for the bar chart
+    const chartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        datasets: [
+            {
+                label: 'Sales',
+                data: [3000, 4000, 3200, 5000, 6200, 7500],
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Monthly Sales',
+            },
+        },
+    };
+
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col">
+        <div className="min-h-screen bg-gray-100 p-4">
+            {/* Header Section */}
+            <div className="mb-6 text-center">
+                <h1 className="text-2xl lg:text-3xl font-bold text-gray-800">Admin Dashboard</h1>
+            </div>
 
-            {/* Main Content */}
-            <div className="flex flex-1">
-                {/* Sidebar */}
-                <aside className="w-64 bg-white shadow-lg p-6">
-                    <ul className="space-y-6">
-                        <li>
-                            <button className="w-full text-left py-2 px-4 bg-blue-500 text-white rounded-md">Dashboard</button>
-                        </li>
-                        <li>
-                            <button className="w-full text-left py-2 px-4 hover:bg-blue-200">Users</button>
-                        </li>
-                        <li>
-                            <button className="w-full text-left py-2 px-4 hover:bg-blue-200">Products</button>
-                        </li>
-                        <li>
-                            <button className="w-full text-left py-2 px-4 hover:bg-blue-200">Orders</button>
-                        </li>
-                        <li>
-                            <button className="w-full text-left py-2 px-4 hover:bg-blue-200">Reports</button>
-                        </li>
+            {/* Main Grid for Quick Actions */}
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg">
+                    <h2 className="text-lg font-semibold text-gray-700">Users</h2>
+                    <p className="text-sm text-gray-500">Manage all users</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg">
+                    <h2 className="text-lg font-semibold text-gray-700">Orders</h2>
+                    <p className="text-sm text-gray-500">Track orders</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg">
+                    <h2 className="text-lg font-semibold text-gray-700">Reports</h2>
+                    <p className="text-sm text-gray-500">View reports</p>
+                </div>
+            </div>
+
+            {/* Detailed Stats Section */}
+            <div className="mt-6 space-y-4 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-4">
+                <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg">
+                    <h2 className="text-lg font-semibold text-gray-700">Recent Activity</h2>
+                    <ul className="mt-2 text-sm text-gray-600 space-y-1">
+                        <li>User John Doe added a new product</li>
+                        <li>Order #1234 was completed</li>
+                        <li>Product "Winter Jacket" updated</li>
                     </ul>
-                </aside>
-
-                {/* Main Panel */}
-                <main className="flex-1 p-8">
-                    <section className="mb-8">
-                        <h2 className="text-2xl font-semibold mb-4">Overview</h2>
-                        <div className="grid grid-cols-4 gap-8">
-                            <div className="bg-white p-6 rounded-lg shadow-lg">
-                                <h3 className="text-xl font-bold">Total Users</h3>
-                                <p className="mt-2 text-4xl font-bold">1,245</p>
-                            </div>
-                            <div className="bg-white p-6 rounded-lg shadow-lg">
-                                <h3 className="text-xl font-bold">Total Products</h3>
-                                <p className="mt-2 text-4xl font-bold">456</p>
-                            </div>
-                            <div className="bg-white p-6 rounded-lg shadow-lg">
-                                <h3 className="text-xl font-bold">Total Orders</h3>
-                                <p className="mt-2 text-4xl font-bold">678</p>
-                            </div>
-                            <div className="bg-white p-6 rounded-lg shadow-lg">
-                                <h3 className="text-xl font-bold">Revenue</h3>
-                                <p className="mt-2 text-4xl font-bold">$123,456</p>
-                            </div>
+                </div>
+                <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg">
+                    <h2 className="text-lg font-semibold text-gray-700">Statistics</h2>
+                    <div className="grid grid-cols-2 gap-4 text-center">
+                        <div>
+                            <p className="text-2xl font-bold text-gray-800">120</p>
+                            <p className="text-sm text-gray-500">Active Users</p>
                         </div>
-                    </section>
+                        <div>
+                            <p className="text-2xl font-bold text-gray-800">30</p>
+                            <p className="text-sm text-gray-500">New Orders</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    <section className="mb-8">
-                        <h2 className="text-2xl font-semibold mb-4">User Management</h2>
-                        <table className="w-full bg-white shadow-lg rounded-lg">
-                            <thead className="bg-gray-100">
-                                <tr>
-                                    <th className="py-3 px-4 text-left">User ID</th>
-                                    <th className="py-3 px-4 text-left">Name</th>
-                                    <th className="py-3 px-4 text-left">Email</th>
-                                    <th className="py-3 px-4 text-left">Role</th>
-                                    <th className="py-3 px-4 text-left">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {/* Example Data */}
-                                <tr>
-                                    <td className="py-3 px-4">1234</td>
-                                    <td className="py-3 px-4">John Doe</td>
-                                    <td className="py-3 px-4">johndoe@example.com</td>
-                                    <td className="py-3 px-4">Admin</td>
-                                    <td className="py-3 px-4">
-                                        <button className="px-4 py-2 bg-green-500 text-white rounded-lg mr-2">Edit</button>
-                                        <button className="px-4 py-2 bg-red-500 text-white rounded-lg">Delete</button>
-                                    </td>
-                                </tr>
-                                {/* Additional Rows */}
-                            </tbody>
-                        </table>
-                    </section>
+            {/* Monthly Sales Graph */}
+            <div className="mt-6 bg-white p-4 rounded-lg shadow-md hover:shadow-lg">
+                <h2 className="text-lg font-semibold text-gray-700">Monthly Sales</h2>
+                <div className="mt-4">
+                    <Bar data={chartData} options={chartOptions} />
+                </div>
+            </div>
 
-                    <section className="mb-8">
-                        <h2 className="text-2xl font-semibold mb-4">Product Management</h2>
-                        <table className="w-full bg-white shadow-lg rounded-lg">
-                            <thead className="bg-gray-100">
-                                <tr>
-                                    <th className="py-3 px-4 text-left">Product ID</th>
-                                    <th className="py-3 px-4 text-left">Name</th>
-                                    <th className="py-3 px-4 text-left">Price</th>
-                                    <th className="py-3 px-4 text-left">Stock</th>
-                                    <th className="py-3 px-4 text-left">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {/* Example Data */}
-                                <tr>
-                                    <td className="py-3 px-4">5678</td>
-                                    <td className="py-3 px-4">Laptop</td>
-                                    <td className="py-3 px-4">$999</td>
-                                    <td className="py-3 px-4">15</td>
-                                    <td className="py-3 px-4">
-                                        <button className="px-4 py-2 bg-green-500 text-white rounded-lg mr-2">Edit</button>
-                                        <button className="px-4 py-2 bg-red-500 text-white rounded-lg">Delete</button>
-                                    </td>
-                                </tr>
-                                {/* Additional Rows */}
-                            </tbody>
-                        </table>
-                    </section>
-                </main>
+            {/* Total Stats Section */}
+            <div className="mt-6 bg-white p-4 rounded-lg shadow-md hover:shadow-lg">
+                <h2 className="text-lg font-semibold text-gray-700">Total Overview</h2>
+                <div className="grid grid-cols-2 gap-4 text-center">
+                    <div>
+                        <p className="text-2xl font-bold text-gray-800">500</p>
+                        <p className="text-sm text-gray-500">Total Products</p>
+                    </div>
+                    <div>
+                        <p className="text-2xl font-bold text-gray-800">320</p>
+                        <p className="text-sm text-gray-500">Total Sold</p>
+                    </div>
+                    <div>
+                        <p className="text-2xl font-bold text-gray-800">$12,000</p>
+                        <p className="text-sm text-gray-500">Total Monthly Sales</p>
+                    </div>
+                    <div>
+                        <p className="text-2xl font-bold text-gray-800">$3,800</p>
+                        <p className="text-sm text-gray-500">Total Individual Sales</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Footer Section */}
+            <div className="mt-6 text-center">
+                <button className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+                    Generate Report
+                </button>
             </div>
         </div>
     );
