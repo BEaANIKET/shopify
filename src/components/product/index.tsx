@@ -11,13 +11,14 @@ import { deleteProduct } from "@/services/product";
 import toast from 'react-hot-toast'
 import { Loader2 } from "lucide-react"
 import { addToCart } from "@/services/cartServious/cartServious";
+import { log } from "console";
 
 export const ProductCard = ({ product }) => {
   const { imageUrl, name, price, priceDrop } = product;
   const path = usePathname();
   const isAdminView = path.includes("/admin-view");
   const router = useRouter();
-  const { setCurrUpdateProductDetails, user, cartItems, setCartItems, allProductData, setAllProductData } = useAppContext();
+  const { setCurrUpdateProductDetails, user, cartItems, setCartItems, allProductData, setAllProductData, setSelecetdOrderProduct, selectedOrderProduct } = useAppContext();
   const [deleteLoading, setDeleteLoading] = useState(false)
   const [addToCartLoader, setAddToCartLoader] = useState(false)
 
@@ -99,6 +100,27 @@ export const ProductCard = ({ product }) => {
     router.push(`/product/listing/productdetails/${product._id}`);
   }
 
+  const buyNow = async () => {
+    const orderData = [
+      {
+        productDetails: {
+          cetegory: product.category,
+          name: product.name,
+          price: product.price,
+          priceDrop: product.priceDrop,
+          description: product.description,
+          deliveryInfo: product.deliveryInfo,
+          imageUrl: product.imageUrl,
+          size: product.size,
+        },
+        productId: product._id,
+        quantity: 1,
+      }
+
+    ]
+    setSelecetdOrderProduct(orderData);
+    router.replace('/checkout')
+  }
 
   product.priceDrop = String(product.priceDrop)
 
@@ -130,9 +152,32 @@ export const ProductCard = ({ product }) => {
             <Button onClick={handleDeleteProduct} className=" bg-black py-1"> {deleteLoading ? <Loader2 className=" bg-white absolute right-3 mr-2 h-4 w-4 animate-spin" /> : 'Delete'} </Button>
           </div>
         ) : (
-          <div className=" w-full flex justify-center ">
-            {" "}
-            <Button disabled={addToCartLoader} onClick={handleCartClick} className=" bg-black py-1 ">Add to Cart</Button>{" "}
+          <div className="w-full flex justify-center space-x-4">
+            {/* Buy Now Button */}
+            <Button
+              onClick={buyNow}
+              className="bg-blue-500 text-white px-6 py-2 rounded-md font-semibold transition-colors duration-300 active:scale-[.95] disabled:opacity-50"
+            >
+              Buy Now
+            </Button>
+
+            {/* Add to Cart Button */}
+            <button onClick={handleCartClick} disabled={addToCartLoader} className=" active:scale-[.90] flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="black"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-6 h-6 mr-2"
+              >
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a1 1 0 0 0 1 .78H19a1 1 0 0 0 1-.78L23 6H6"></path>
+              </svg>
+            </button>
           </div>
         )}
       </div>

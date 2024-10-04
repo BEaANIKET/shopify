@@ -2,11 +2,13 @@ import { useAppContext } from '@/context';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { addToCart } from '@/services/cartServious/cartServious';
+import { useRouter } from 'next/navigation';
 
 export const ProductDetails = ({ product }) => {
 
+    const router = useRouter()
     const [addToCartLoader, setAddToCartLoader] = useState(false)
-    const { cartItems, setCartItems, user } = useAppContext()
+    const { cartItems, setCartItems, user, setSelecetdOrderProduct } = useAppContext()
 
     let handleClickCart = async () => {
         if (!user) {
@@ -52,7 +54,25 @@ export const ProductDetails = ({ product }) => {
     }
 
     const handleBuyNow = async () => {
+        const orderData = [
+            {
+                productDetails: {
+                    cetegory: product.category,
+                    name: product.name,
+                    price: product.price,
+                    priceDrop: product.priceDrop,
+                    description: product.description,
+                    deliveryInfo: product.deliveryInfo,
+                    imageUrl: product.imageUrl,
+                    size: product.size,
+                },
+                productId: product._id,
+                quantity: 1,
+            }
 
+        ]
+        setSelecetdOrderProduct(orderData);
+        router.replace('/checkout')
     }
 
     if (!product) {

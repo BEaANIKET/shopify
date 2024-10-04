@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 
 
 export const CartComponents = () => {
-    const { isOpenCart, setIsOpenCart, setCartItemCount, cartItems, setCartItems, user } = useAppContext();
+    const { isOpenCart, setIsOpenCart, setCartItemCount, cartItems, setCartItems, user, selectedOrderProduct, setSelecetdOrderProduct } = useAppContext();
     const ref = useClickAway(() => setIsOpenCart(false));
     const router = useRouter();
     const [loading, setLoading] = useState(true);
@@ -44,6 +44,7 @@ export const CartComponents = () => {
             setCartItemCount(0)
         }
     }, [user?.id]);
+
 
     useEffect(() => {
         let totalPrice = 0;
@@ -96,15 +97,14 @@ export const CartComponents = () => {
 
     }
 
-    const buyNow = async () => {
 
-    }
 
     const handleCloseCartMenu = () => {
         setIsOpenCart(false)
     }
 
     const handleCheckout = () => {
+        setSelecetdOrderProduct(cartItems)
         router.replace('/checkout');
     };
 
@@ -160,7 +160,7 @@ export const CartComponents = () => {
                             const actualPrice = originalPrice - discount;
 
                             return (
-                                <div key={item._id} className="flex items-center justify-between bg-gray-900 text-white p-4 rounded-lg shadow-sm">
+                                <div key={item._id} className="flex relative items-center justify-between bg-gray-900 text-white p-4 rounded-lg shadow-sm">
 
                                     {/* Left Section - Product Image */}
                                     <div className="w-1/4">
@@ -212,16 +212,7 @@ export const CartComponents = () => {
                                             <p className="text-sm text-green-400">Total Saved: ₹{(discount * item.quantity).toFixed(2)}</p>
                                             <p className="text-sm text-red-400">Total Pay: ₹{(actualPrice * item.quantity).toFixed(2)}</p>
                                         </div>
-
-                                        {/* Remove and Buy Now Buttons */}
-                                        <div className="flex items-center mt-4 space-x-4">
-                                            <button
-                                                className="bg-red-500 text-white py-1 px-2 rounded-lg hover:bg-red-600"
-                                                onClick={() => removeItem(item.productId)}
-                                            >
-                                                Remove
-                                            </button>
-                                        </div>
+                                        <div onClick={() => removeItem(item.productId)} className=' absolute cursor-pointer top-4 right-4 '>❌</div>
                                     </div>
                                 </div>
                             );

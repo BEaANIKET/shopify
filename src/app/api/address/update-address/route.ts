@@ -9,7 +9,7 @@ export async function POST(request: Request) {
             await DbConnect()
             const { searchParams } = new URL(request.url)
             const addressId = searchParams.get('addressId')
-            const { city, state, pinCode, country, fullName, address } = await request.json()
+            const { city, state, pinCode, country, fullName, address, number } = await request.json()
             if (!addressId) {
                 return Response.json({
                     success: false,
@@ -29,7 +29,8 @@ export async function POST(request: Request) {
                     pinCode,
                     country,
                     fullName,
-                    address
+                    address,
+                    number
                 },
                 {
                     new: true

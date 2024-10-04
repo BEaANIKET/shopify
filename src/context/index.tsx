@@ -67,6 +67,7 @@ export default function AppContextProvider({ children }) {
     const [userAddress, setUserAddress] = useState([]);
     const [allProductData, setAllProductData] = useState([]);
     const [userSelectedAddress, setUserSelectedAddress] = useState()
+    const [selectedOrderProduct, setSelecetdOrderProduct] = useState([])
 
 
     useEffect(() => {
@@ -81,7 +82,6 @@ export default function AppContextProvider({ children }) {
             }
         }
         getUser()
-        setUserSelectedAddress(JSON.parse(localStorage.getItem('userSelectedAddress')))
     }, [])
 
 
@@ -95,7 +95,8 @@ export default function AppContextProvider({ children }) {
         homePageData, setHomePageData,
         userAddress, setUserAddress,
         allProductData, setAllProductData,
-        userSelectedAddress, setUserSelectedAddress
+        userSelectedAddress, setUserSelectedAddress,
+        selectedOrderProduct, setSelecetdOrderProduct
     }
 
     return (

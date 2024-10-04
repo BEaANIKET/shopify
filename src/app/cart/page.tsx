@@ -164,14 +164,14 @@ const CartPage = () => {
                                     </button>
                                 </div>
 
-                                <div onClick={() => removeItem(item.productId)} className=' absolute cursor-pointer top-0 right-0 '>❌</div>
+                                <div onClick={() => removeItem(item.productId)} className='sm:hidden absolute cursor-pointer top-0 right-0 '>❌</div>
 
                             </div>
 
 
                             <div className="text-right">
                                 <p className="line-through text-red-500">
-                                    Original Total: ₹{(item.productDetails.price * item.quantity).toFixed(2)}
+                                    Total: ₹{(item.productDetails.price * item.quantity).toFixed(2)}
                                 </p>
                                 <p className="text-green-500 font-semibold">
                                     Saved: {item.productDetails.priceDrop}%

@@ -4,7 +4,6 @@ import { isAuthUser } from '@/auth/isAuthUser';
 import { Cart } from '@/model/cart';
 
 export async function GET(request: Request) {
-    console.log("HEllo I am working ")
     const user = await isAuthUser(request);
 
     if (user) {
@@ -23,7 +22,6 @@ export async function GET(request: Request) {
                     }
                 )
             }
-            console.log(cart)
 
             const totalPrice = cart.products.reduce((sum, item) => sum + item.price * item.quantity, 0);
             const totalSavedPrice = cart.products.reduce(
