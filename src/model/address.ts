@@ -37,6 +37,6 @@ const addressSchema = new mongoose.Schema({
         type: String,
         require: true
     }
-})
+}, { timestamps: true })
 
 export const Address = mongoose.models.Address || mongoose.model('Address', addressSchema);

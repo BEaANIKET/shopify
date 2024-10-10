@@ -184,7 +184,7 @@ export const Navbar = () => {
                       Cart
                     </div>
                     <hr />
-                    <div className="p-3 rounded-md  transition hover:bg-blue-600 duration-200 cursor-pointer text-center">
+                    <div onClick={() => router.replace('/order')} className="p-3 rounded-md  transition hover:bg-blue-600 duration-200 cursor-pointer text-center">
                       Orders
                     </div>
                     <hr />

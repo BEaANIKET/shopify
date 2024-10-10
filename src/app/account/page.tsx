@@ -25,9 +25,10 @@ const Page: React.FC = () => {
     const [isEditingAddress, setIsEditingAddress] = useState<boolean>(false);
     const [editIndex, setEditIndex] = useState<number | null>(null);
     const [showForm, setShowForm] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [removeLoading, setRemoveLoading] = useState<boolean>(false);
-    const [fetchDataLoading, setFetchDataLoading] = useState<boolean>(true);
+    const [fetchDataLoading, setFetchDataLoading] = useState<boolean>(false);
+
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Address>({
         defaultValues: {
@@ -42,16 +43,18 @@ const Page: React.FC = () => {
     });
 
     const router = useRouter()
-
     useEffect(() => {
         const getAddressData = async () => {
+            setFetchDataLoading(true);
             const response = await getAddress();
             if (response.success) {
                 setUserAddress(response.data);
             }
             setFetchDataLoading(false);
         };
-        getAddressData();
+        if (userAddress.length <= 0) {
+            getAddressData();
+        }
     }, [setUserAddress]);
 
     const handleAddNewAddress = () => {
@@ -293,6 +296,8 @@ const Page: React.FC = () => {
                     </form>
                 </div>
             )}
+
+
         </div>
     );
 };

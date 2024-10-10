@@ -13,8 +13,6 @@ import ProductCard from '@/components/product';
 import { useAppContext } from '@/context';
 import ProductSkeleton from '@/components/skeleton/ProductSkeleton';
 
-
-
 const Home = () => {
   const banners = [
     b1, b2, b3,

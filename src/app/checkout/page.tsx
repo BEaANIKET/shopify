@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context';
 import { Button } from "@/components/ui/button";
+import { createOrder } from '@/services/order';
 
 const Page = () => {
     const router = useRouter();
@@ -14,6 +15,9 @@ const Page = () => {
     const [totalSavedPrice, setTotalSavedPrice] = useState(0);
     const [orderDetails, setOrderDetails] = useState({})
     const [payAmount, setPayAmount] = useState(0)
+    const [showPopup, setShowPopup] = useState(false);
+
+
 
     useEffect(() => {
         let calculatedTotalPrice = 0;
@@ -57,15 +61,12 @@ const Page = () => {
                 paymentMethod: 'Online',
                 deliveryStatus: 'Pending',
                 paymentStatus: 'Pending',
-                paymentRef: '',
-                trackingNumber: ''
+                paymentRef: 'dfdfafad',
+                trackingNumber: 'asfafaf'
             };
 
             setOrderDetails(updatedOrderDetails);
-            console.log("Placing order with details:", updatedOrderDetails);
-            console.log("payPrice ", payAmount);
-
-
+            setShowPopup(true)
         } catch (err) {
             setError('Failed to place order. Please try again.');
         }
@@ -95,6 +96,14 @@ const Page = () => {
         setSelecetdOrderProduct((prevItems) =>
             prevItems.filter(item => item.productId !== id)
         );
+    };
+
+
+    const handlePayment = () => {
+        const response = createOrder(orderDetails).catch((err => console.log(err)))
+        alert(`Payment of $${payAmount} completed!`);
+        setShowPopup(false);
+        // router.push('/order');
     };
 
 
@@ -240,7 +249,25 @@ const Page = () => {
                     Place Order
                 </button>
             </div>
+
+            {showPopup && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+                        <h2 className="text-xl font-semibold text-gray-800">Payment Confirmation</h2>
+                        <p className="mt-4 text-lg">Amount to Pay: <strong>${payAmount}</strong></p>
+
+                        <button
+                            onClick={handlePayment}
+                            className="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+                        >
+                            Pay Now
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
+
+
     );
 };
 

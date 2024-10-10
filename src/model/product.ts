@@ -1,8 +1,9 @@
+import { timeStamp } from 'console';
 import mongoose from 'mongoose';
 
 const productSchema = new mongoose.Schema({
     size: {
-        type: [String], 
+        type: [String],
         required: true,
     },
     name: {
@@ -12,7 +13,7 @@ const productSchema = new mongoose.Schema({
     price: {
         type: String,
         required: true,
-        match: /^\d+(\.\d{1,2})?$/, 
+        match: /^\d+(\.\d{1,2})?$/,
     },
     description: {
         type: String,
@@ -40,7 +41,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-});
+}, { timestamps: true });
 
 export const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
 

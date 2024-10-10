@@ -25,12 +25,12 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         enum: ['Admin', 'Client'],
-        default: 'Client' 
+        default: 'Client'
     },
     cart: {
         type: Array,
         default: []
     }
-});
+}, { timestamps: true });
 
 export const User = mongoose.models.User || mongoose.model('User', userSchema);
