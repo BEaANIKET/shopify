@@ -102,10 +102,9 @@ const Page = () => {
     const handlePayment = () => {
         const response = createOrder(orderDetails).catch((err => console.log(err)))
         alert(`Payment of $${payAmount} completed!`);
+        router.replace('/order')
         setShowPopup(false);
-        // router.push('/order');
     };
-
 
 
     return (

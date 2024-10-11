@@ -3,12 +3,14 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { useRouter } from 'next/navigation';
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Page = () => {
     // Data for the bar chart
+    const router = useRouter()
     const chartData = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June'],
         datasets: [
@@ -44,15 +46,15 @@ const Page = () => {
 
             {/* Main Grid for Quick Actions */}
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg">
+                <div className="bg-white p-6 rounded-lg shadow-md text-center cursor-pointer hover:shadow-lg">
                     <h2 className="text-lg font-semibold text-gray-700">Users</h2>
                     <p className="text-sm text-gray-500">Manage all users</p>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg">
+                <div onClick={() => router.replace('/admin-view/all-order')} className="bg-white p-6 rounded-lg shadow-md text-center cursor-pointer hover:shadow-lg">
                     <h2 className="text-lg font-semibold text-gray-700">Orders</h2>
                     <p className="text-sm text-gray-500">Track orders</p>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg">
+                <div className="bg-white p-6 rounded-lg shadow-md text-center cursor-pointer hover:shadow-lg">
                     <h2 className="text-lg font-semibold text-gray-700">Reports</h2>
                     <p className="text-sm text-gray-500">View reports</p>
                 </div>
@@ -120,7 +122,7 @@ const Page = () => {
                     Generate Report
                 </button>
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button } from '../ui/button';
+import { deleteOrder } from '@/services/order';
 
 export const OrderCard = ({ order }) => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -8,8 +10,8 @@ export const OrderCard = ({ order }) => {
     };
 
     return (
-        <div className={`bg-white shadow-md rounded-lg p-4 transition-all duration-300 ${isExpanded ? 'h-auto' : 'h-fit'} overflow-hidden`}>
-            <div className="flex items-center">
+        <div className={`bg-white shadow-md relative rounded-lg p-4 transition-all duration-300 ${isExpanded ? 'h-auto' : 'h-fit'} overflow-hidden`}>
+            <div className="flex items-center ">
                 {/* Product Image */}
                 <img
                     src={order?.orderItem?.productDetails[0]?.imageUrl || '/default-product.jpg'}
@@ -22,11 +24,16 @@ export const OrderCard = ({ order }) => {
                     {/* Product Price */}
                     <p className="text-gray-700 font-semibold">${Number(order?.orderItem?.productDetails[0]?.price).toFixed(2)}</p>
                 </div>
+
+                <div className=' font-bold ml-4 '>
+                    <h3> Name {order?.userDetails?.firstName + order?.userDetails?.lastName} </h3>
+                    <h3> email {order?.userDetails?.email} </h3>
+                </div>
             </div>
 
             {/* See More Button */}
             <button
-                className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300"
+                className=" bg-blue-500 mt-4 active:scale-[.95] text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300"
                 onClick={toggleDetails}
             >
                 {isExpanded ? 'See Less' : 'See More'}
@@ -53,6 +60,8 @@ export const OrderCard = ({ order }) => {
                     </p>
                 </div>
             )}
+
+
         </div>
     );
 };
